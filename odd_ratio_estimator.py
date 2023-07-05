@@ -1,4 +1,3 @@
-#move the while statement accordingly
 import os
 import arguably 
 import pyprofilers as pp
@@ -28,6 +27,22 @@ def geograhicalOutbreakOdds(population_dataframe = False,\
     
     """
     if population_dataframe, geo_dataframe and latitude:
+         controls_exposed = []
+         controls_unexposed = []
+             while True:
+                 take_contols_infected = input("Please input the number of the controls infected means\
+                     that the number of the population that become infected without \
+                         exposing to that latitude:")
+                 take_control_non_infected = input("Please input the number of the controls non-infected means\
+                     that the number of the population that become infected without \
+                         exposing to that latitude:")
+                 controls_exposed.append(take_controls_infected)
+                 controls_unexposed.append(take_contols_non_infected)
+                 if take_contols_infected and take_control_non_infected == "":
+                     break
+                     print (f"odd ratio for the predictability cant be calculated as 
+                            the controls infected and non-ingected are not defined 
+                            and the details of the ex: {unexposed}, {exposed} and {latitude_char}")
              disease_dataframe = pd.read_csv(os.path.join(os.getcwd(), population_dataframe))
              geographical_dataframe = pd.read_csv(os.path.join(os.getcwd(), geo_dataframe))
              merged_dataframe = pd.concat([disease_dataframe, geographical_dataframe])
@@ -38,27 +53,14 @@ def geograhicalOutbreakOdds(population_dataframe = False,\
              unexposed = merged_dataframe[::].where(merged_dataframe["latitude"] \
                                                     == latitude_wide).iloc[::,3].to_list()
              latitude_char = merged_dataframe[::].where(merged_dataframe["latitude"] \
-                                                   == latitude_wide).iloc[::,3].to_list()
-             while True:
-                 take_contols_infected = input("Please input the number of the controls infected means\
-                     that the number of the population that become infected without \
-                         exposing to that latitude:")
-                 take_control_non_infected = input("Please input the number of the controls non-infected means\
-                     that the number of the population that become infected without \
-                         exposing to that latitude:")
-                 controls_exposed += take_controls_infected
-                 controls_unexposed += take_contols_non_infected
-                 if take_contols_infected and take_control_non_infected == "":
-                     print (f"odd ratio for the predictability cant be calculated as 
-                            the controls infected and non-ingected are not defined 
-                            and the details of the ex: {unexposed}, {exposed} and {latitude_char}")
+                                                   == latitude_wide).iloc[::,3].to_list()         
             odd_ratio_1 = (exposed//controls_exposed)
             odd_ratio_2 = (unexposed//control_unexposed)
             odd_ratio_print = odd_ratio_1//odd_ratio_2
             odd_ratio_location = geolocator.reverse("str(''.join(merged_dataframe[::].where(merged_dataframe["latitude"] \
                                                    == latitude_wide).iloc[::,3].to_list())),\
-            str(''.join(merged_dataframe[::].where(merged_dataframe["latitude"] \
-                                                   == latitude_wide).iloc[::,4].to_list()))")
+            str(''.join(merged_dataframe[::].where(merged_dataframe["longitude"] \
+                                                   == longitude_wide).iloc[::,4].to_list()))")
             print(f"the odd ratio and the predictability of the outbreak in this latitude is {odd_ratio_print}")
             print(f"The location for the odd ratio is {odd_ratio_location}")
             print(f"The location latitude and the latitude are {odd_ratio_location.latitude}, {odd_ratio_location.longitude}")
@@ -66,6 +68,22 @@ def geograhicalOutbreakOdds(population_dataframe = False,\
             
             
     elif population_dataframe, geo_dataframe and longitude:
+         controls_exposed = []
+         controls_unexposed = []
+             while True:
+                 take_contols_infected = input("Please input the number of the controls infected means\
+                     that the number of the population that become infected without \
+                         exposing to that longitude:")
+                 take_control_non_infected = input("Please input the number of the controls non-infected means\
+                     that the number of the population that become infected without \
+                         exposing to that longitude:")
+                 controls_exposed.append(take_controls_infected)
+                 controls_unexposed.append(take_contols_non_infected)
+                 if take_contols_infected and take_control_non_infected == "":
+                     break
+                     print (f"odd ratio for the predictability cant be calculated as 
+                            the controls infected and non-ingected are not defined 
+                            and the details of the ex: {unexposed}, {exposed} and {latitude_char}")
              disease_dataframe = pd.read_csv(os.path.join(os.getcwd(), population_dataframe))
              geographical_dataframe = pd.read_csv(os.path.join(os.getcwd(), geo_dataframe))
              merged_dataframe = pd.concat([disease_dataframe, geographical_dataframe])
@@ -76,27 +94,14 @@ def geograhicalOutbreakOdds(population_dataframe = False,\
              unexposed = merged_dataframe[::].where(merged_dataframe["longitude"] \
                                                     == longitude_wide).iloc[::,3].to_list()
              longitude_char = merged_dataframe[::].where(merged_dataframe["longitude"] \
-                                                   == longitude_wide).iloc[::,4].to_list()
-             while True:
-                 take_contols_infected = input("Please input the number of the controls infected means\
-                     that the number of the population that become infected without \
-                         exposing to that longitude:")
-                 take_control_non_infected = input("Please input the number of the controls non-infected means\
-                     that the number of the population that become infected without \
-                         exposing to that longitude:")
-                 controls_exposed += take_controls_infected
-                 controls_unexposed += take_contols_non_infected
-                 if take_contols_infected and take_control_non_infected == "":
-                     print (f"odd ratio for the predictability cant be calculated as 
-                            the controls infected and non-ingected are not defined 
-                            and the details of the ex: {unexposed}, {exposed} and {latitude_char}")
+                                                   == longitude_wide).iloc[::,4].to_list()         
             odd_ratio_1 = (exposed//controls_exposed)
             odd_ratio_2 = (unexposed//control_unexposed)
             odd_ratio_print = odd_ratio_1//odd_ratio_2
             odd_ratio_location = geolocator.reverse("str(''.join(merged_dataframe[::].where(merged_dataframe["latitude"] \
                                                    == latitude_wide).iloc[::,3].to_list())),\
-            str(''.join(merged_dataframe[::].where(merged_dataframe["latitude"] \
-                                                   == latitude_wide).iloc[::,4].to_list()))")
+            str(''.join(merged_dataframe[::].where(merged_dataframe["longitude"] \
+                                                   == longitude_wide).iloc[::,4].to_list()))")
             print(f"the odd ratio and the predictability of the outbreak in this latitude is {odd_ratio_print}")
             print(f"The location for the odd ratio is {odd_ratio_location}")
             print(f"The location latitude and the latitude are {odd_ratio_location.latitude}, {odd_ratio_location.longitude}")
@@ -107,4 +112,4 @@ def geograhicalOutbreakOdds(population_dataframe = False,\
 snap.stop()
 snap.save()
 if __name__ ==  "__main__":
-    arguably.run() 
+    arguably.run()        
